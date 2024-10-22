@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumber Tycoon 2 Pumpkin Calculator</title>
+    <link rel="icon" type="image/png" href="favicon.png"</link>
     <style>
         body {
             font-family: sans-serif;
@@ -13,32 +14,39 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #000000; /* Черный фон */
+            background-color: #FFFFFF;         
             color: #91673a;
+            overflow: hidden
+            
             font-family: 'Arial', sans-serif; /* Добавим шрифт Arial */
+            overflow: hidden; /* Скроем полосы прокрутки */
         }
         .container {
-            background-color: #241301;
-            background: linear-gradient(to left, #211202, #140b01);
+            background-color: #211202;
+            background: linear-gradient(to left, #2F1801, #1C1000);
             padding: 20px;
             border: 3px solid #3d2205;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative; /* Добавим позиционирование */
+            
+            max-width: 75%; /* Ограничим максимальную ширину контейнера */
+            margin: 0 auto; /* Выровняем по центру */
+            overflow: auto
         }
         input[type="number"] {
             width: 100px;
             padding: 8px;
             margin: 10px 0;
-            border: 3px solid #000000;
+            border: 3px solid #3d2205;
             border-radius: 3px;
         }
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: 3px solid #000000;
+            background-color: #91673a;
+            color: #664624;
+            border: 3px solid #3d2205;
             border-radius: 3px;
             cursor: pointer;
         }
@@ -52,15 +60,35 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+        
+        a {
+        display: block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #91673a;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-size: 18px;
+        border-radius: 50px;
+        border: 3px solid #3d2205
+    }
+    
+    a:hover {
+        background: #91673a;
+    }
+        
         p {
             color: #73502a;
             font-size: 1.1em;
             line-height: 1.6;
             text-align: justify;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: rgba(139, 151, 201, 0.1);
+            margin: 2px 0;
+            padding: 2px;
+            border-radius: 50px;
+            background-color: rgba(120, 78, 36, 0.1);
+                     
+                    
         }
         .background-image { /* Добавим класс для картинки */
             position: absolute;
@@ -68,38 +96,58 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.2; /* Прозрачность */
+            opacity: 1; /* Прозрачность */
             z-index: -1; /* Поместим картинку под контейнер */
+            object-fit: cover; /* Оптимизируем картинку */
+            transform: scale(1.1); /* Увеличим картинку на 10% */
+            animation: move 10s linear infinite; /* Добавим анимацию */
+        }
+        @keyframes move {
+            0% {
+                transform: translateX(0%) scale(1.1); /* Увеличение в начале анимации */
+            }
+            50% {
+                transform: translateX(5%) scale(1.1); /* Увеличение при смещении */
+            }
+            100% {
+                transform: translateX(0%) scale(1.1); /* Увеличение в конце анимации */
+            }
         }
     </style>
 </head>
 <body>
-    <img src="storage/emulated/0/PumpkinProject/background.png" alt="Background" class="background-image"> <!-- Замените 'path/to/your/image.jpg' на путь к вашей картинке -->
+    <img src="Background.jpg" alt="Background" class="background-image"> <!-- Замените 'path/to/your/image.jpg' на путь к вашей картинке -->
 
     <div class="container">
-        <div align ="center"><h1>Lumber tycoon 2 Pumpkin calculator</h1>
-        <p>jopa</p>
+        <div align ="center"><h2>Lumber Tycoon 2 Pumpkin calculator</h2>
 
         </div>
 
-        <h3>Calculate pumpkins </h3>
-        <label for="pumpkinAmount">Количество тыкв:</label>
+        <h3>Calculate pumpkins</h3>
+        <label for="pumpkinAmount"><b style="color: #664624">Number of Pumpkins:</b></label>
         <input type="number" id="pumpkinAmount" min="1">
-        <button onclick="calculateChances()">Рассчитать</button>
+        <button onclick="calculateChances()">Calculate</button>
 
         <div id="results">
-            <h2>Результаты:</h2>
+            <h2>Results:</h2>
             <table id="chanceTable">
                 <thead>
                     <tr>
-                        <th>Размер тыквы</th>
-                        <th>Шанс</th>
+                        <th style="color: #664624">Pumpkin size:</th>
+                        <th style="color: #664624">Chance:</th>
                     </tr>
                 </thead>
                 <tbody>
                     </tbody>
             </table>
             <p id="cost"></p>
+            <div align="center" style="color: #664624"><h6>Created by Kofdgotch</h6></div>
+            <a style="color: #664624" href="https://www.roblox.com/users/3582457558/profile">Follow to creator</a>
+            
+            <a style="color: #664624" href="https://www.roblox.com/game-pass/940680035/Oplata">Donate</a>
+            
+            <a style="color: #664624" href="https://www.roblox.com/games/13822889/Lumber-Tycoon-2">Join Lumber Tycoon 2</a>
+            
         </div>
     </div>
 
@@ -109,28 +157,28 @@
             const chanceTable = document.getElementById('chanceTable').getElementsByTagName('tbody')[0];
             const costElement = document.getElementById('cost');
 
-            // Исходные шансы
+            // Исходные шансы (проценты)
             const pumpkinChances = {
-                '1 stud': 0.068, 
-                '2 studs': 0.22,
-                '3 studs': 0.72,
-                '4 studs': 0.06,
-                '5 studs': 0.005,
-                '7 studs': 0.00026,
-                '8 studs': 0.00004,
-                '9 studs': 0.00001,
+                '1 stud': 6.8, 
+                '2 studs': 22,
+                '3 studs': 72,
+                '4 studs': 6,
+                '5 studs': 0.5,
+                '7 studs': 0.026, // Исправленное значение 
+                '8 studs': 0.004, // Исправленное значение
+                '9 studs': 0.001, // Исправленное значение
             };
 
             // Увеличение шансов
             const increasedChances = {
-                '1 stud': pumpkinChances['1 stud'] * pumpkinAmount,
-                '2 studs': pumpkinChances['2 studs'] * pumpkinAmount,
-                '3 studs': pumpkinChances['3 studs'] * pumpkinAmount,
-                '4 studs': pumpkinChances['4 studs'] * pumpkinAmount,
-                '5 studs': pumpkinChances['5 studs'] * pumpkinAmount,
-                '7 studs': pumpkinChances['7 studs'] * pumpkinAmount,
-                '8 studs': pumpkinChances['8 studs'] * pumpkinAmount,
-                '9 studs': pumpkinChances['9 studs'] * pumpkinAmount,
+                '1 stud': pumpkinChances['1 stud'] * pumpkinAmount / 100, // Делим на 100 для перевода процентов в десятичную дробь
+                '2 studs': pumpkinChances['2 studs'] * pumpkinAmount / 100,
+                '3 studs': pumpkinChances['3 studs'] * pumpkinAmount / 100,
+                '4 studs': pumpkinChances['4 studs'] * pumpkinAmount / 100,
+                '5 studs': pumpkinChances['5 studs'] * pumpkinAmount / 100,
+                '7 studs': pumpkinChances['7 studs'] * pumpkinAmount / 100,
+                '8 studs': pumpkinChances['8 studs'] * pumpkinAmount / 100,
+                '9 studs': pumpkinChances['9 studs'] * pumpkinAmount / 100,
             };
 
             // Очистка таблицы
@@ -143,14 +191,16 @@
                 const chanceCell = row.insertCell();
 
                 sizeCell.textContent = size;
-                chanceCell.textContent = (increasedChances[size] * 100).toFixed(4) + '%';
+                chanceCell.textContent = (increasedChances[size] * 100).toFixed(4) + '%'; // Перевод обратно в проценты
             }
 
             // Расчет стоимости
             const cost = pumpkinAmount * 500;
-            costElement.textContent = `Стоимость: ${cost} $`;
+            costElement.textContent = `Price: ${cost} $`; // Правильное форматирование текста
         }
     </script>
 </body>
 </html>
+
+
 
